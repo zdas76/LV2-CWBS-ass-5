@@ -1,0 +1,69 @@
+import { baseApi } from "../api/baseApi";
+import { tagTypes } from "../tagTypes";
+
+const serviceApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getAllService: builder.query({
+      query: () => {
+        return {
+          url: "/services",
+          method: "GET",
+        };
+      },
+      providesTags: [tagTypes.service],
+    }),
+    getServiceById: builder.query({
+      query: (id) => {
+        return {
+          url: `/services/${id}`,
+          method: "GET",
+        };
+      },
+      providesTags: [tagTypes.service],
+    }),
+    deleteServiceById: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/services/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: [tagTypes.service],
+    }),
+    addService: builder.mutation({
+      query: (data) => {
+        return {
+          url: "services",
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: [tagTypes.service],
+    }),
+    updateSerivce: builder.mutation({
+      query: (data) => {
+        const updateData = {
+          name: data.name,
+          category: data.category,
+          description: data.description,
+          price: data.price,
+          stock: data.stock,
+        };
+        return {
+          url: `/services/${data.id}`,
+          method: "PUT",
+          body: updateData,
+        };
+      },
+      invalidatesTags: [tagTypes.service],
+    }),
+  }),
+});
+
+export const {
+  useGetAllServiceQuery,
+  useDeleteServiceByIdMutation,
+  useGetServiceByIdQuery,
+  useAddServiceMutation,
+  useUpdateSerivceMutation,
+} = serviceApi;

@@ -18,5 +18,6 @@ export const routerGenerator = (items: TUserPath[]) => {
     }
     return acc;
   }, []);
+
   return routes;
 };

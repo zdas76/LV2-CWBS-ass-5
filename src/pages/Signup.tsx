@@ -26,7 +26,6 @@ export default function Signup() {
       }
       navigate(`/home`);
     } catch (error: any) {
-      console.log(error);
       toast.error(`${error?.message}`, {
         id: toastId,
         duration: 2000,

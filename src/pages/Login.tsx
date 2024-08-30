@@ -30,7 +30,7 @@ export default function Login() {
 
       dispatch(setUser({ user: user, token: response.token }));
       toast.success("Logged in successfuly", { id: toastId, duration: 2000 });
-      Navigate(`/${user.role}/dashboard`);
+      Navigate(`/dashboard`);
     } catch (error) {
       console.log(error);
       toast.error("Somthing went wrong", { id: toastId, duration: 2000 });
@@ -54,10 +54,10 @@ export default function Login() {
           </Button>
         </CForm>
         <div className="flex text-white mt-8 gap-3">
-          <p className=" ">If you have no account! please!..</p>
+          <p className="text-md ">If you have no account! please!</p>
           <span>
-            <Link to="/singup" className="font-bold">
-              Sing up
+            <Link to="/singup" className="font-bold uppercase">
+              create a new account.
             </Link>
           </span>
         </div>

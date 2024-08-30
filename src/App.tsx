@@ -1,5 +1,12 @@
+import HeroSection from "./components/page/homePage/HeroSection";
+
 function App() {
-  return <div className="container min-h-full"></div>;
+  return (
+    <section className=" min-h-screen">
+      <HeroSection />
+      <div></div>
+    </section>
+  );
 }
 
 export default App;
