@@ -4,7 +4,13 @@ import { tagTypes } from "../tagTypes";
 const serviceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllService: builder.query({
-      query: () => {
+      query: (args:{name:string, value?:string | number, }[]) => {
+        const params = new URLSearchParams();
+        if(args.length){
+          args.forEach(item => {
+            params.append(`${item?.name}`, `${item?.value}`)
+          })
+        }
         return {
           url: "/services",
           method: "GET",
@@ -12,6 +18,7 @@ const serviceApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.service],
     }),
+    
     getServiceById: builder.query({
       query: (id) => {
         return {

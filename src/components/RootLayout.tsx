@@ -7,7 +7,7 @@ import { Button, Dropdown } from "antd";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { currentUser, logOut } from "../redux/features/authSlice";
 import { UserOutlined } from "@ant-design/icons";
-
+import logo from "../assets/carlogo.png"
 const { Header, Content, Footer } = Layout;
 
 export const nevItems = [
@@ -61,8 +61,10 @@ export default function RootLayout() {
             padding: "5px 30px",
             fontSize: "25px",
           }}
+          className="flex items-center gap-1"
         >
-          <img src="icons/Logo.png" alt="Logo" width={90} />
+          <img src={logo} alt="Logo" width={90} />
+          <h2 className="text-lg md:text-2xl lg:text-3xl font-bold">SCWS</h2>
         </NavLink>
         <Menu
           theme="dark"

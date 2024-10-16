@@ -8,10 +8,10 @@ import Booking from "../pages/Booking";
 import { routerGenerator } from "../Utils/routerGenerator";
 import { adminPath } from "./adminRoute";
 import { userPath } from "./userRoute";
-import Reviews from "../pages/Reviews";
 import Dashboard from "../pages/Dasboard";
-import AboutUs from "../pages/AboutUs";
-import Contact from "../pages/Contact";
+import ServiceDetails from "../pages/ServiceDetails";
+import AboutUs from "../pages/aboutus/AboutUs";
+import ContactUs from "../pages/Contact";
 
 const router = createBrowserRouter([
   {
@@ -21,10 +21,10 @@ const router = createBrowserRouter([
       { index: true, element: <App /> },
       { path: "home", element: <App /> },
       { path: "service", element: <Service /> },
+      { path: "service/:postId", element: < ServiceDetails/> },
       { path: "booking", element: <Booking /> },
       { path: "aboutus", element: <AboutUs /> },
-      { path: "contact", element: <Contact /> },
-      { path: "reviews", element: <Reviews /> },
+      { path: "contact", element: <ContactUs /> },
       { path: "login", element: <Login /> },
       { path: "singup", element: <Signup /> },
       {
