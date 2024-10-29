@@ -4,12 +4,12 @@ import { tagTypes } from "../tagTypes";
 const serviceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllService: builder.query({
-      query: (args:{name:string, value?:string | number, }[]) => {
+      query: (args: { name: string; value?: string | number }[]) => {
         const params = new URLSearchParams();
-        if(args.length){
-          args.forEach(item => {
-            params.append(`${item?.name}`, `${item?.value}`)
-          })
+        if (args.length > 0) {
+          args.forEach((item) => {
+            params.append(`${item?.name}`, `${item?.value}`);
+          });
         }
         return {
           url: "/services",
@@ -18,7 +18,7 @@ const serviceApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.service],
     }),
-    
+
     getServiceById: builder.query({
       query: (id) => {
         return {
@@ -37,6 +37,7 @@ const serviceApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [tagTypes.service],
     }),
+    
     addService: builder.mutation({
       query: (data) => {
         return {
@@ -47,14 +48,15 @@ const serviceApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [tagTypes.service],
     }),
+
     updateSerivce: builder.mutation({
       query: (data) => {
         const updateData = {
           name: data.name,
-          category: data.category,
           description: data.description,
+          duration: data.duration,
           price: data.price,
-          stock: data.stock,
+          images: data.images,
         };
         return {
           url: `/services/${data.id}`,

@@ -14,11 +14,11 @@ export default function AddServiceModal() {
   const [addService, { isLoading }] = useAddServiceMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-    console.log(values);
+    
     const toastId = toast.loading("Creating ....");
     try {
       const result = await addService(values).unwrap();
-      console.log(result);
+      
       if (result) {
         toast.success(`${result?.message}`, {
           id: toastId,
@@ -61,8 +61,7 @@ export default function AddServiceModal() {
             <CInput type="file" name="images" label="Images" />
 
             <Button type="primary" htmlType="submit">
-              Submit
-              {/* {isLoading ? <span className="disabled">Submiting</span> : "Submit"} */}
+              {isLoading ? <span className="disabled">Submiting</span> : "Submit"}
             </Button>
           </CForm>
         </div>

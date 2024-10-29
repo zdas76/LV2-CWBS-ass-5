@@ -7,3 +7,12 @@ export const addServiceSchema = z.object({
   duration: z.number({ required_error: "Duration time as Minute is required" }),
   images: z.string({ required_error: "Minimum select one image" }),
 });
+
+
+export const updateServiceSchema = z.object({
+  name: z.string().optional(),
+  description: z.string().optional(),
+  price: z.number().min(1).optional(),
+  duration: z.number().optional(),
+  images: z.string().optional(),
+});

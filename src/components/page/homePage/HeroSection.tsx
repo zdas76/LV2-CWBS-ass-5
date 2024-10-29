@@ -3,7 +3,7 @@ import "../style.css";
 import { Link } from "react-router-dom";
 export default function HeroSection() {
   return (
-    <Flex className="items-center flex-col-reverse md:flex-row p-5 gap-5 container mx-auto">
+    <Flex className="items-center flex-col-reverse md:flex-row p-5 gap-5 ">
       <Row className="w-full md:w-1/3">
         <Col className="">
           <p className="mb-5 text-justify">

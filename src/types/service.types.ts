@@ -6,7 +6,7 @@ export interface IService {
     isDeleted: boolean;
     name: string;
     price: number;
-    _id:string
+    _id?:string
 }
 
 export type TBookingInfo = {

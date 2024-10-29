@@ -18,7 +18,7 @@ interface DataType {
 }
 
 export default function ManageService() {
-  const { data: services, isFetching } = useGetAllServiceQuery(undefined);
+  const { data: services, isFetching } = useGetAllServiceQuery([]);
   const [deleteServiceById] = useDeleteServiceByIdMutation();
 
   const handelDelet = async (id: string): Promise<any> => {
@@ -33,7 +33,7 @@ export default function ManageService() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await deleteServiceById(id);
+          const res:any = await deleteServiceById(id);
           if (res.error) {
             Swal.fire({
               title: "Not Deleted",
@@ -84,8 +84,8 @@ export default function ManageService() {
       key: "action",
       render: (item) => (
         <Space size="middle">
-          <UpdateServiceModal />
-
+          <UpdateServiceModal {...item}  />
+          
           <Button
             type="text"
             className="rounded-full size-10"
@@ -118,6 +118,7 @@ export default function ManageService() {
             columns={columns}
             dataSource={services?.data}
             loading={isFetching}
+            rowKey="name" 
           />
         </div>
       </div>

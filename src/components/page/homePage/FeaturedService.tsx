@@ -3,7 +3,8 @@ import { IService } from "../../../types/service.types"
 import ServiceCard from "./ServiceCard"
 
 export const FeaturedService =()=>{
-    const {data} = useGetAllServiceQuery([{name:"limit", value:6}])
+    const {data} = useGetAllServiceQuery([])
+    
     return (
         <div>
 
