@@ -4,9 +4,9 @@ import { Controller } from "react-hook-form";
 type TSelectProps = {
   label: string;
   name: string;
-  options: { value: string; label: string;  }[] | undefined;
+  options: { value: string; label: string; desibled?: boolean }[] | undefined;
   disabled?: boolean;
-  placeholder:string;
+  placeholder?:string;
 };
 export default function CSelect({
   label,

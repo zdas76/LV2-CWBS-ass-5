@@ -1,6 +1,7 @@
 
 
 export type TSlot = {
+  _id?: string;
   service: string;
   date: Date;
   startTime: string;

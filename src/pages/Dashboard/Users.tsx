@@ -132,6 +132,6 @@ const columns = [
 ];
   return <div>
 
-<Table dataSource={users?.data} columns={columns} />
+<Table dataSource={users?.data} columns={columns} loading={isFetching} />
   </div>
 }

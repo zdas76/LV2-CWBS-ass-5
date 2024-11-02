@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import Footers from "./Footer";
 import Drower from "./ui/Drower";
 import { Layout, Menu } from "antd";
@@ -7,7 +7,8 @@ import { Button, Dropdown } from "antd";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { currentUser, logOut } from "../redux/features/authSlice";
 import { UserOutlined } from "@ant-design/icons";
-import logo from "../assets/carlogo.png"
+import logo from "../assets/carlogo.png";
+import { ShoppingCart } from "lucide-react";
 const { Header, Content, Footer } = Layout;
 
 export const nevItems = [
@@ -19,10 +20,7 @@ export const nevItems = [
     key: "Service",
     label: <NavLink to={"/service"}>Service</NavLink>,
   },
-  {
-    key: "Booking",
-    label: <NavLink to={"/booking"}>Booking</NavLink>,
-  },
+
   {
     key: "AboutUs",
     label: <NavLink to={"/aboutus"}>About Us</NavLink>,
@@ -35,6 +33,7 @@ export const nevItems = [
 
 export default function RootLayout() {
   const user = useAppSelector(currentUser);
+  const state = useAppSelector((state) => state.booking.carts);
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -77,22 +76,33 @@ export default function RootLayout() {
           <div className="mt-4 cursor-pointer md:hidden">
             <Drower />
           </div>
-          <div className="flex flex-col text-white">
-            {user ? (
-              <Dropdown
-                menu={{ items }}
-                placement="bottomRight"
-                arrow={{ pointAtCenter: true }}
-              >
-                <Button className="rounded-full h-10 w-10">
-                  <div>
-                    <UserOutlined className="w-full" />
-                  </div>
-                </Button>
-              </Dropdown>
-            ) : (
-              <NavLink to={"/login"}>Login</NavLink>
-            )}
+          <div className="flex items-center gap-5">
+            <div>
+            <NavLink to="/booking">
+              <div className="bg-red-500 text-white flex justify-center items-center rounded-full h-6">
+                {state.length}
+              </div>
+              <ShoppingCart className="text-white font-bold" />
+            </NavLink>
+             
+            </div>
+            <div className="flex flex-col text-white">
+              {user ? (
+                <Dropdown
+                  menu={{ items }}
+                  placement="bottomRight"
+                  arrow={{ pointAtCenter: true }}
+                >
+                  <Button className="rounded-full h-10 w-10">
+                    <div>
+                      <UserOutlined className="w-full" />
+                    </div>
+                  </Button>
+                </Dropdown>
+              ) : (
+                <NavLink to={"/login"}>Login</NavLink>
+              )}
+            </div>
           </div>
         </div>
       </Header>

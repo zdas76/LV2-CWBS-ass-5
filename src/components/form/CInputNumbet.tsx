@@ -3,7 +3,7 @@ import { Form, InputNumber } from "antd";
 import { Controller } from "react-hook-form";
 
 type TInpueProps = {
-  prefix: string;
+  prefix?: string;
   name: string;
   label?: string;
 };

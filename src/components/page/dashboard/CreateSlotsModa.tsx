@@ -1,23 +1,26 @@
 import React, { useState } from "react";
-import { Button, Modal, SelectProps } from "antd";
+import { Button, Modal } from "antd";
 import CForm from "../../form/CForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addSlotsSchema } from "../../../Schemas/SlotSchema";
-
-import CInputNumber from "../../form/CInputNumbet";
 import CSelect from "../../form/CSelect";
 import { useGetAllServiceQuery } from "../../../redux/features/serviceApi";
 import { IService } from "../../../types/service.types";
-
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import CDatePicker from "../../form/CDatePicker";
+import { DefaultOptionType } from "antd/es/select";
+import { useCrateSlotsMutation } from "../../../redux/features/slotsApi";
+import CInput from "../../form/CInput";
+import Swal from "sweetalert2";
 
 const SlotsModal: React.FC = () => {
   const [open, setOpen] = useState(false);
 
-  const options: SelectProps["options"] = [];
+  const options: DefaultOptionType["options"] = [];
 
   const { data } = useGetAllServiceQuery([]);
+
+  const [createSlots, { isLoading }] = useCrateSlotsMutation();
 
   data?.data?.map((item: IService) => {
     options.push({
@@ -26,8 +29,22 @@ const SlotsModal: React.FC = () => {
     });
   });
 
-  const onSubmit:SubmitHandler<FieldValues> = async (values) => {
-    console.log(values)
+  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+    try {
+      const result = await createSlots(values);
+      if (result.data) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Product Added Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      console.log(error)
+    }
+   
   };
 
   return (
@@ -40,7 +57,7 @@ const SlotsModal: React.FC = () => {
         centered
         open={open}
         onOk={() => setOpen(false)}
-        onCancel={() => setOpen(false)}
+        onClose={() => setOpen(false)}
         width={1000}
       >
         <div>
@@ -52,10 +69,28 @@ const SlotsModal: React.FC = () => {
               placeholder="Select a service"
             />
             <CDatePicker name="date" label="Select Date" />
-            <CInputNumber name="startTime" label="Start Time" prefix="HH:" />
-            <CInputNumber name="endTime" label="End Time" prefix="HH:" />
+            <CInput
+              name="startTime"
+              label="Start Time"
+              addonBefore="HH:MM"
+              type="text"
+              placeholder="00:00"
+            />
+            <CInput
+              name="endTime"
+              label="End Time"
+              type="text"
+              addonBefore="HH:MM"
+              placeholder="00:00"
+            />
 
-            <Button htmlType="submit" type="primary">Create Slots</Button>
+            <Button htmlType="submit" type="primary">
+              {isLoading ? (
+                <span className="disabled">Creating....</span>
+              ) : (
+                "Create Slots"
+              )}
+            </Button>
           </CForm>
         </div>
       </Modal>
